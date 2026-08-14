@@ -17,7 +17,7 @@ data = pd.DataFrame({
 
 # Keep positive drain current values
 data = data[data["ID"] > 0]
-
+data = data[data["VGS"] > 0]
 vgs = data["VGS"].to_numpy()
 id_current = data["ID"].to_numpy()
 
@@ -40,7 +40,7 @@ print(f"Threshold voltage V_T = {vt:.4f} V")
 
 # Plot
 plt.figure()
-plt.plot(vgs, sqrt_id, "o", label="Data")
+plt.plot(vgs, sqrt_id, "--", label="Data")
 plt.plot(
     vgs_fit,
     m * vgs_fit + c,
@@ -48,7 +48,7 @@ plt.plot(
 )
 
 plt.axhline(0, linewidth=1)
-plt.axvline(vt, linestyle="--", label=f"V_T = {vt:.3f} V")
+plt.axvline(vt, linestyle="-", label=f"V_T = {vt:.3f} V")
 
 plt.xlabel("V_GS (V)")
 plt.ylabel("sqrt(I_D) (sqrt(mA))")
